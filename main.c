@@ -9,7 +9,7 @@ int main(){
     
     srand(time(NULL));
     
-    const int length = 65;
+    const int length = 64;
     
     int board[length];
     int board2[length];
@@ -20,30 +20,15 @@ int main(){
         board2[i] = board[i];
     }
     
-    board[length / 2] = 1;
-    board2[length / 2] = board[length / 2];
+    int halfLength = length / 2;
+    board[halfLength] = 1;
+    board2[halfLength] = board[halfLength];
     
     int loop = 0;
+    int numLoops = 256;
     
-    while(loop < 256){
+    while(loop < numLoops){
         
-        for(int i = 0; i < length; ++i){
-            
-            int aDiff = i == 0 ? length - 1 : -1;
-            int bDiff = i == length - 1 ? -length + 1 : 1;
-            
-            for(int j = 0; j < 8; ++j){
-                
-                    
-                if(posits[j][0] == board[i + aDiff] &&
-                    posits[j][1] == board[i] &&
-                    posits[j][2] == board[i + bDiff]){
-                    
-                    board2[i] = rule[j];
-                    break;
-                }
-            }
-        }
         for(int i = 0; i < length; ++i){
             
             board[i] = board2[i];
@@ -57,6 +42,24 @@ int main(){
                 printf(" ");
             }
         }
+        
+        for(int i = 0; i < length; ++i){
+            
+            int aDiff = i == 0 ? length - 1 : -1;
+            int bDiff = i == length - 1 ? -length + 1 : 1;
+            
+            for(int j = 0; j < 8; ++j){
+                    
+                if(posits[j][0] == board[i + aDiff] &&
+                    posits[j][1] == board[i] &&
+                    posits[j][2] == board[i + bDiff]){
+                    
+                    board2[i] = rule[j];
+                    break;
+                }
+            }
+        }
+        
         printf("\n");
         
         ++loop;
